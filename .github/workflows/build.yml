@@ -22,6 +22,17 @@ on:
       - "README.md"
       - "PRIVACY.md"
 
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: What type of build to trigger. Release builds MUST be ran from the `master` branch.
+        required: true
+        default: nightly
+        type: choice
+        options:
+          - nightly
+          - release
+
 # This workflow uses custom actions (prepare-build and prepare-release) defined in:
 # 
 # .github/actions/
