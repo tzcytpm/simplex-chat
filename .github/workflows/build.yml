@@ -32,6 +32,21 @@ on:
         options:
           - nightly
           - release
+      macos:
+          description: Build macOS
+          required: true
+          type: boolean
+          default: true
+      windows:
+          description: Build Windows
+          required: true
+          type: boolean
+          default: true
+      linux:
+          description: Build Linux
+          required: true
+          type: boolean
+          default: true
 
 # This workflow uses custom actions (prepare-build and prepare-release) defined in:
 # 
@@ -110,6 +125,7 @@ jobs:
 # =========================
 
   build-linux:
+    if: inputs.linux
     name: "ubuntu-${{ matrix.os }} (CLI,Desktop), GHC: ${{ matrix.ghc }}"
     needs: [maybe-release, variables]
     runs-on: ubuntu-${{ matrix.os }}
@@ -325,6 +341,7 @@ jobs:
 # =========================
 
   build-macos:
+    if: inputs.macos
     name: "${{ matrix.os }} (CLI,Desktop), GHC: ${{ matrix.ghc }}"
     needs: [maybe-release, variables]
     runs-on: ${{ matrix.os }}
@@ -439,6 +456,7 @@ jobs:
 # =========================
 
   build-windows:
+    if: inputs.windows
     name: "${{ matrix.os }} (CLI,Desktop), GHC: ${{ matrix.ghc }}"
     needs: [maybe-release, variables]
     runs-on: ${{ matrix.os }}
