@@ -17,4 +17,4 @@ security list-keychains -s `security list-keychains | xargs` /tmp/simplex.keycha
 scripts/desktop/build-lib-mac.sh
 cd apps/multiplatform
 ./gradlew packageDmg
-./gradlew notarizeDmg
+# ./gradlew notarizeDmg
