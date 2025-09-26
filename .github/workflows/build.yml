@@ -1,27 +1,6 @@
 name: build
 
 on:
-  push:
-    branches:
-      - master
-      - stable
-    tags:
-      - "v*"
-      - "!*-fdroid"
-      - "!*-armv7a"
-  pull_request:
-    paths-ignore:
-      - "apps/ios"
-      - "apps/multiplatform"
-      - "blog"
-      - "docs"
-      - "fastlane"
-      - "images"
-      - "packages"
-      - "website"
-      - "README.md"
-      - "PRIVACY.md"
-
   workflow_dispatch:
     inputs:
       mode:
