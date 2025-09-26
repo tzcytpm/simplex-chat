@@ -19,21 +19,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Upload file with specific name
-      if: startsWith(inputs.github_ref, 'refs/tags/v')
-      uses: simplex-chat/upload-release-action@v2
-      with:
-        repo_token: ${{ inputs.github_token }}
-        file: ${{ inputs.bin_path }}
-        asset_name: ${{ inputs.bin_name }}
-        tag: ${{ inputs.github_ref }}
-
-    - name: Add hash to release notes
-      if: startsWith(inputs.github_ref, 'refs/tags/v')
-      uses: simplex-chat/action-gh-release@v2
-      env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
-      with:
-        append_body: true
-        body: |
-          ${{ inputs.bin_hash }}
+   - name: Upload Artifacts
+     uses: actions/upload-artifact@v4
+     with:
+         name: ${{ inputs.bin_name }}
+         path: |
+             ${{ inputs.bin_path }}
+         retention-days: 1
