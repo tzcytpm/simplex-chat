@@ -26,6 +26,11 @@ on:
           required: true
           type: boolean
           default: true
+      cli:
+          description: Build Cli App
+          required: true
+          type: boolean
+          default: true
 
 # This workflow uses custom actions (prepare-build and prepare-release) defined in:
 # 
@@ -360,6 +365,7 @@ jobs:
           echo "    flags: +openssl"                                                      >> cabal.project.local
 
       - name: Build CLI
+        if: inputs.cli
         id: mac_cli_build
         shell: bash
         run: |
@@ -369,6 +375,7 @@ jobs:
           echo "bin_hash=$(echo SHA2-256\(${{ matrix.cli_asset_name }}\)= $(openssl sha256 $path | cut -d' ' -f 2))" >> $GITHUB_OUTPUT
 
       - name: Upload CLI
+        if: inputs.cli
         uses: ./.github/actions/prepare-release
         with:
           bin_path: ${{ steps.mac_cli_build.outputs.bin_path }}
@@ -400,6 +407,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run tests
+        if: inputs.cli
         timeout-minutes: 120
         shell: bash
         run: |
